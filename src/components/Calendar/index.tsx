@@ -1,4 +1,6 @@
-import React from 'react';
+import WeatherPanel from 'components/WeatherPanel';
+
+import OvalInfoBlock from '../OvalInfoBlock';
 
 import {
   CalendarWrapper,
@@ -11,7 +13,6 @@ import {
   Day,
   GoogleCalendarInfo,
   GoogleCalendarInfoItem,
-  InfoItemTime,
   InfoItemText,
   CurrentCity,
   CurrentCountry,
@@ -38,7 +39,6 @@ const Calendar = () => {
             </PmAm>
           </MainTime>
           <Day>Monday, 2 July, 2022</Day>
-
         </LeftSideInfo>
         <RightSideInfo>
           <CurrentCity>
@@ -49,18 +49,17 @@ const Calendar = () => {
           </CurrentCountry>
         </RightSideInfo>
       </CalendarInfoWrapper>
-
-
       <GoogleCalendarInfo>
         {
           tasks.map(({ id, time, text }) => (
             <GoogleCalendarInfoItem key={id}>
-              <InfoItemTime>{time}</InfoItemTime>
+              <OvalInfoBlock info={time } />
               <InfoItemText>{text}</InfoItemText>
             </GoogleCalendarInfoItem>
           ))
         }
       </GoogleCalendarInfo>
+      <WeatherPanel/>
     </CalendarWrapper>
   );
 };

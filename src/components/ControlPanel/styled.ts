@@ -6,18 +6,22 @@ interface Props {
 
 export const InputContainer = styled.div<Props>`
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
   max-width: 480px;
   color: ${({ theme }) => theme.color.white };
   padding: 5px;
   margin: 0 auto;
+  @media (max-width: 400px) {
+    flex-direction: column;
+    padding: 0 5px;
+  }
 `;
 
 export const InputWrapper = styled.div<Props>`
   display: flex;
   justify-content: space-between;
-  max-width: 390px;
+  margin: 10px
+;  max-width: 390px;
     .icon{
       cursor: pointer;
       transition: ease-out;
@@ -25,6 +29,9 @@ export const InputWrapper = styled.div<Props>`
         transform: scale(1.2);
       }
     }
+    @media (max-width: 650px) {
+    max-width: 300px;
+  }
 `;
 
 export const WeatherSettings = styled.div<Props>`

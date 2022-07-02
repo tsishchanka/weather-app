@@ -4,14 +4,23 @@ export const CalendarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 800px;
-  margin: 50px auto;
+  max-width: 900px;
+  margin: 50px auto 0;
+  padding: 50px;
+    @media (max-width: 650px) {
+    padding: 10px 50px;
+    margin: 10px auto 0;
+  }
 `;
 
 export const CalendarInfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-
+  @media (max-width: 400px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const LeftSideInfo = styled.div`
@@ -26,6 +35,9 @@ export const RightSideInfo = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
+  @media (max-width: 400px) {
+    align-items: center;
+  }
 `;
 
 export const MainTime = styled.div`
@@ -45,28 +57,27 @@ export const PmAm = styled.div`
 `;
 
 export const Day = styled.div`
-  font-size: 14px;
+ font-size: 14px;
+ @media (max-width: 400px) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
 `;
 
 export const GoogleCalendarInfo = styled.div`
   margin: 25px 0 0;
+  @media (max-width: 400px) {
+   margin: 5px 0;
+  }
 `;
 
 export const GoogleCalendarInfoItem = styled.div`
    display: flex;
    margin: 28px 0;
-`;
-
-export const InfoItemTime = styled.div`
-  background-color: ${({ theme }) => theme.color.gray};
-  font-size: 12px;
-  min-height: 25px;
-  min-width: 50px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 14px;
+   @media (max-width: 400px) {
+   margin: 5px 0;
+  }
 `;
 
 export const InfoItemText = styled.div`
@@ -74,9 +85,9 @@ export const InfoItemText = styled.div`
   display: flex;
   min-height: 25px;
   max-width: 350px;
-    align-items: center;
-
+  align-items: center;
   justify-content: center;
+  margin: 0 0 0 14px;
 `;
 
 
