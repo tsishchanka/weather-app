@@ -46,6 +46,7 @@ export const SearchInput = styled.input<Props>`
   outline: none;
   border-radius: 5px;
   border: 1px solid ${({ theme }) => theme.color.primary};
+  color: ${({ theme }) => theme.color.primary};
   width: 320px;
   height: 25px;
   margin: 0 5px 0;

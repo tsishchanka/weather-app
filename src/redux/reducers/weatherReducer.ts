@@ -3,7 +3,7 @@ import { handleActions } from 'redux-actions';
 import * as actions from 'redux/actions';
 
 const DEFAULT_STATE = {
-  weatherList: [],
+  weatherInfo: [],
   isLoading: false,
   isOpenWeather: false,
   error: null,
@@ -19,7 +19,7 @@ const weatherReducer = handleActions(
     }),
     [actions.GET_OPEN_WEATHER_SUCCESS]: (state: any, {payload}: any) => ({
       ...state,
-      weatherList: payload,
+      weatherInfo: payload,
       isLoading: false,
       isOpenWeather: true,
     }),

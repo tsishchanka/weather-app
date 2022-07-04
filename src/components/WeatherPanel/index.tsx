@@ -1,6 +1,9 @@
+import  {FC} from 'react';
 import OvalInfoBlock from 'components/OvalInfoBlock';
 
-import { UilSun } from '@iconscout/react-unicons';
+import { type DailyInfo } from '../Calendar';
+
+import WeatherIcon from '../WeatherIcon';
 
 import {
   WeatherPanelWrapper,
@@ -11,6 +14,7 @@ import {
   DailyInfoWrapper,
   DailyInfoBox,
   DailyImg,
+  Img,
 } from './styled';
 
 
@@ -24,26 +28,34 @@ const days = [
   { id: 7, day: 'Sun', temp: '20*' },
 ];
 
-const WeatherPanel = () => {
+interface DailyProps {
+  daily: Array<DailyInfo>;
+  currentTemp: number;
+  currentIcon: string;
+}
+
+
+const WeatherPanel = ({daily, currentTemp, currentIcon}:DailyProps) => {
   return (
     <WeatherPanelWrapper>
 
       <CurrentDayWrapper>
-        <UilSun size={ 100 }/>
+        <WeatherIcon  maxWidth='100px' icon = {currentIcon}/>
         <CurrentDayBox>
           <OvalInfoBlock info='Today' />
-          <CurrentTemperature>12*</CurrentTemperature>
+          <CurrentTemperature>{ `${currentTemp }°` }</CurrentTemperature>
         </CurrentDayBox>
       </CurrentDayWrapper>
       <DailyInfoWrapper>
-        {days.map(({id, day, temp}) => (
+        {daily?.map(({id, title, temp, icon}) => (
           <DailyInfoBox key={id}>
-            <OvalInfoBlock info={day} />
-            <DailyImg><UilSun size={50} /></DailyImg>
-            <DailyTemperature>{ temp }</DailyTemperature>
+            <OvalInfoBlock info={title} />
+            <DailyImg><WeatherIcon maxWidth='65px' icon = {icon}/></DailyImg>
+            <DailyTemperature>{ `${temp}°` }</DailyTemperature>
           </DailyInfoBox>
         ))}
       </DailyInfoWrapper>
+
     </WeatherPanelWrapper>
   );
 };

@@ -2,7 +2,11 @@ import React from 'react';
 
 import { LocationsWrapper, LocationButton } from './styled';
 
-const LocationButtons = () => {
+interface LocationProps {
+  setQuery: any;
+}
+
+const LocationButtons = ({setQuery}: LocationProps) => {
   const locations = [
     {
       id: 1,
@@ -18,7 +22,7 @@ const LocationButtons = () => {
     },
     {
       id: 4,
-      title: 'New-York',
+      title: 'New York',
     },
     {
       id: 5,
@@ -28,7 +32,13 @@ const LocationButtons = () => {
   return (
     <LocationsWrapper>
       {locations.map(({ id, title }) => (
-        <LocationButton key={id} type="button"> { title}</LocationButton>
+        <LocationButton
+          key={id}
+          type="button"
+          onClick={
+            () => setQuery({ q: title })
+          }> {title}
+        </LocationButton>
       ))}
     </LocationsWrapper>
   );

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface Props {
+  maxWidth: string;
+}
+
 export const WeatherPanelWrapper = styled.div`
   background-color: ${({ theme }) => theme.color.gray};
   font-size: 12px;
@@ -68,4 +72,8 @@ export const DailyImg = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const Img = styled.img<Props>`
+  max-width: ${props => props.maxWidth ? props.maxWidth : '65px'};
 `;

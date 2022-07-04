@@ -54,6 +54,7 @@
         "code": 120
       }
     ],
+
     "linebreak-style": 0,
     "global-require": 0,
     "eslint linebreak-style": [
@@ -81,13 +82,7 @@
     "no-console": "warn",
     "operator-linebreak": "warn",
     "padding-line-between-statements": "error",
-    "prefer-const": [
-      "error",
-      {
-        "destructuring": "any",
-        "ignoreReadBeforeAssign": false
-      }
-    ],
+    "prefer-const": "off",
     "import/order": [
       "warn",
       {

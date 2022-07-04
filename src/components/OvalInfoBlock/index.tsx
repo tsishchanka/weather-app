@@ -2,9 +2,9 @@ import React, { FC, ReactNode } from 'react';
 
 import {InfoItem} from './styled';
 
-type Props = {
+interface Props {
   info: string | number;
-};
+}
 
 const OvalInfoBlock: FC<Props> = ({ info }) => {
   return (

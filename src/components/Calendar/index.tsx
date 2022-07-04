@@ -1,6 +1,10 @@
+import { FC } from 'react';
+
 import WeatherPanel from 'components/WeatherPanel';
 
 import OvalInfoBlock from '../OvalInfoBlock';
+
+import { formatToLocalTime, formatToLocalDay } from '../../api';
 
 import {
   CalendarWrapper,
@@ -25,27 +29,59 @@ const tasks = [
 
 ];
 
-const Calendar = () => {
+export type DailyInfo = {
+  id: string,
+  title: string,
+  temp: number,
+  icon?: string
+};
+
+type Weather = {
+  name: string;
+  currentTemp: number;
+  icon: string;
+  country: string;
+  timezone: string;
+  daily: Array<DailyInfo>;
+  dt: any;
+}
+
+interface CalendarProps {
+  weatherInfo: Weather;
+
+}
+
+const Calendar: FC<CalendarProps> = ({ weatherInfo }: CalendarProps) => {
+  const {
+    name,
+    currentTemp,
+    icon: currentIcon,
+    country,
+    timezone,
+    daily,
+    dt,
+  } = weatherInfo;
+
   return (
     <CalendarWrapper>
       <CalendarInfoWrapper>
         <LeftSideInfo>
           <MainTime>
             <Time>
-              10:00
+              { dt && formatToLocalTime(dt, timezone, 'hh:mm')}
             </Time>
             <PmAm>
-              PM
+              { dt && formatToLocalTime(dt, timezone, 'a')}
             </PmAm>
           </MainTime>
-          <Day>Monday, 2 July, 2022</Day>
+          <Day>{dt &&  formatToLocalDay(dt, timezone, 'cccc, dd LLL yyyy') }</Day>
         </LeftSideInfo>
         <RightSideInfo>
           <CurrentCity>
-            Minsk
+            {name}
           </CurrentCity>
           <CurrentCountry>
-            Belarus
+            {country}
           </CurrentCountry>
         </RightSideInfo>
       </CalendarInfoWrapper>
@@ -59,7 +95,7 @@ const Calendar = () => {
           ))
         }
       </GoogleCalendarInfo>
-      <WeatherPanel/>
+      <WeatherPanel daily={daily} currentTemp={currentTemp} currentIcon={currentIcon} />
     </CalendarWrapper>
   );
 };
