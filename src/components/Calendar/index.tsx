@@ -90,7 +90,7 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
         </RightSideInfo>
       </CalendarInfoWrapper>
       <GoogleCalendarInfo>
-        <button type="button" onClick = {handleGetEvents}>Events</button>
+        {/* <button type="button" onClick = {handleGetEvents}>Events</button> */}
         {
           tasks.map(({ id, time, text }) => (
             <GoogleCalendarInfoItem key={id}>

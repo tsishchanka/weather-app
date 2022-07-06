@@ -9,12 +9,12 @@ export const CalendarWrapper = styled.div<Props>`
   flex-direction: column;
   justify-content: space-between;
   max-width: 900px;
-  margin: 50px auto 0;
+  margin: 10px auto 0;
   background-color: ${props => props.bgColor};
-  padding: 50px;
+  padding: 15px 50px;
     @media (max-width: 650px) {
     padding: 10px 50px;
-    margin: 10px auto 0;
+    margin: 5px auto 0;
   }
 `;
 
@@ -71,7 +71,7 @@ export const Day = styled.div`
 `;
 
 export const GoogleCalendarInfo = styled.div`
-  margin: 25px 0 0;
+  margin: 15px 0 0;
   @media (max-width: 400px) {
    margin: 5px 0;
   }
@@ -79,7 +79,7 @@ export const GoogleCalendarInfo = styled.div`
 
 export const GoogleCalendarInfoItem = styled.div`
    display: flex;
-   margin: 28px 0;
+   margin: 10px 0;
    @media (max-width: 400px) {
    margin: 5px 0;
   }
