@@ -1,24 +1,56 @@
-import { useState, FC } from 'react';
+import {LOCAL_STORAGE_KEYS} from 'constants/localStorageKeys';
+
+import { useState, FC, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { GET_STORM_REQUEST, GET_OPEN_WEATHER_REQUEST } from 'redux/actions';
 import { UilSearchAlt, UilMapMarker } from '@iconscout/react-unicons';
 
 import { InputContainer, InputWrapper, SearchInput, WeatherSettings, WeatherButton } from './styled';
 
 interface ControlPanelProps {
-  isOpenWeather: boolean;
+  setIsMainApi: any;
+  isMainApi: boolean;
   setQuery: any;
   onChangeGeolocation: any;
+  query: any;
 }
 
 const ControlPanel: FC<ControlPanelProps> = ({
-  isOpenWeather,
+  setIsMainApi,
+  isMainApi,
   setQuery,
   onChangeGeolocation,
+  query,
 }: ControlPanelProps) => {
+
+  const dispatch = useDispatch();
+  const units = 'metric';
+  const {
+    weatherInfo,
+  } = useSelector((state: any) => state.weather);
+
+  const { lat: latCurr, lon: lonCurr, dt } = weatherInfo;
+
   const [location, setLocation] = useState('');
+  
   const handleSearchLocation = () => {
-    if (location !== '') setQuery({ q: location });
+    if (location !== '')
+    {
+      setQuery({q: location});
+    }
   };
 
+  const handleFetchStormGlass = useCallback(() => {
+    dispatch(GET_STORM_REQUEST({ ...query }));
+    setIsMainApi(false);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION, JSON.stringify({ lat: latCurr, lon: lonCurr }));
+  }, [dispatch, query]);
+
+  const handleFetchOpenWeather = useCallback(() => {
+    dispatch(GET_OPEN_WEATHER_REQUEST({ ...query, units }));
+    setIsMainApi(true);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION, JSON.stringify({ lat: latCurr, lon: lonCurr }));
+  }, [dispatch, query, units]);
 
   return (
     <InputContainer>
@@ -33,8 +65,8 @@ const ControlPanel: FC<ControlPanelProps> = ({
         <UilMapMarker size={25} className="icon" onClick={onChangeGeolocation} />
       </InputWrapper>
       <WeatherSettings>
-        <WeatherButton type="button">1</WeatherButton>
-        <WeatherButton type="button">2</WeatherButton>
+        <WeatherButton type="button" onClick={ handleFetchOpenWeather }>WO</WeatherButton>
+        <WeatherButton type="button" onClick={ handleFetchStormGlass }>ST</WeatherButton>
       </WeatherSettings>
     </InputContainer>
   );

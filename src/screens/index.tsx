@@ -8,7 +8,8 @@ import { Container } from './styled';
 interface WeatherProps {
   weatherInfo: any;
   isLoading: boolean;
-  isOpenWeather: boolean;
+  isMainApi: boolean;
+  setIsMainApi: any;
   error: any;
   query: any;
   setQuery: any;
@@ -18,7 +19,8 @@ interface WeatherProps {
 const Weather = ({
   weatherInfo,
   isLoading,
-  isOpenWeather,
+  isMainApi,
+  setIsMainApi,
   error,
   query,
   setQuery,
@@ -29,11 +31,13 @@ const Weather = ({
     <Container>
       <LocationButtons setQuery={setQuery} />
       <ControlPanel
-        isOpenWeather={isOpenWeather}
+        isMainApi={isMainApi}
+        setIsMainApi={setIsMainApi}
         setQuery={setQuery}
         onChangeGeolocation={onChangeGeolocation}
+        query={query}
       />
-      {!isLoading &&  <Calendar weatherInfo={ weatherInfo }/>}
+      {!isLoading &&  <Calendar isMainApi={isMainApi} weatherInfo={ weatherInfo }/>}
 
     </Container>
   );

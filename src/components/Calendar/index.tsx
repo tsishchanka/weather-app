@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 import WeatherPanel from 'components/WeatherPanel';
+import { getGoogleInfo } from 'helpers/getGoogleEvents';
+import { formatToLocalTime, formatToLocalDay } from 'service';
 
 import OvalInfoBlock from '../OvalInfoBlock';
-
-import { formatToLocalTime, formatToLocalDay } from '../../api';
 
 import {
   CalendarWrapper,
@@ -48,10 +48,10 @@ type Weather = {
 
 interface CalendarProps {
   weatherInfo: Weather;
-
+  isMainApi: boolean;
 }
 
-const Calendar: FC<CalendarProps> = ({ weatherInfo }: CalendarProps) => {
+const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) => {
   const {
     name,
     currentTemp,
@@ -62,8 +62,12 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo }: CalendarProps) => {
     dt,
   } = weatherInfo;
 
+  const handleGetEvents = useCallback(() => {
+    getGoogleInfo();
+  }, []);
+
   return (
-    <CalendarWrapper>
+    <CalendarWrapper bgColor={currentTemp > 20 ? 'orange': 'blue'}>
       <CalendarInfoWrapper>
         <LeftSideInfo>
           <MainTime>
@@ -86,6 +90,7 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo }: CalendarProps) => {
         </RightSideInfo>
       </CalendarInfoWrapper>
       <GoogleCalendarInfo>
+        <button type="button" onClick = {handleGetEvents}>Events</button>
         {
           tasks.map(({ id, time, text }) => (
             <GoogleCalendarInfoItem key={id}>
@@ -95,7 +100,7 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo }: CalendarProps) => {
           ))
         }
       </GoogleCalendarInfo>
-      <WeatherPanel daily={daily} currentTemp={currentTemp} currentIcon={currentIcon} />
+      <WeatherPanel isMainApi={isMainApi} daily={daily} currentTemp={currentTemp} currentIcon={currentIcon} />
     </CalendarWrapper>
   );
 };

@@ -26,6 +26,7 @@
     "react-hooks"
   ],
   "rules": {
+    "consistent-return": "off",
     "import/extensions": "off",
     "arrow-body-style": "off",
     "comma-dangle": [

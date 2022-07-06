@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-interface Props {
-
-}
-
-export const InputContainer = styled.div<Props>`
+export const InputContainer = styled.div`
   display: flex;
   justify-content: space-around;
   max-width: 480px;
@@ -17,7 +13,7 @@ export const InputContainer = styled.div<Props>`
   }
 `;
 
-export const InputWrapper = styled.div<Props>`
+export const InputWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 10px
@@ -34,7 +30,7 @@ export const InputWrapper = styled.div<Props>`
   }
 `;
 
-export const WeatherSettings = styled.div<Props>`
+export const WeatherSettings = styled.div`
   display: flex;
   justify-content: center;
   max-height: 80px;
@@ -42,7 +38,7 @@ export const WeatherSettings = styled.div<Props>`
 
 
 
-export const SearchInput = styled.input<Props>`
+export const SearchInput = styled.input`
   outline: none;
   border-radius: 5px;
   border: 1px solid ${({ theme }) => theme.color.primary};
@@ -56,7 +52,7 @@ export const SearchInput = styled.input<Props>`
 }
 `;
 
-export const WeatherButton = styled.button<Props>`
+export const WeatherButton = styled.button`
   border: none;
   font: inherit;
   color: inherit;

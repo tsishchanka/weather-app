@@ -1,8 +1,8 @@
-import  {FC} from 'react';
+import { useSelector } from 'react-redux';
+
 import OvalInfoBlock from 'components/OvalInfoBlock';
 
 import { type DailyInfo } from '../Calendar';
-
 import WeatherIcon from '../WeatherIcon';
 
 import {
@@ -14,36 +14,30 @@ import {
   DailyInfoWrapper,
   DailyInfoBox,
   DailyImg,
-  Img,
 } from './styled';
 
-
-const days = [
-  { id: 1, day: 'Mon', temp: '20*' },
-  { id: 2, day: 'Tue', temp: '20*' },
-  { id: 3, day: 'Wed', temp: '20*' },
-  { id: 4, day: 'Thu', temp: '20*' },
-  { id: 5, day: 'Fri', temp: '20*' },
-  { id: 6, day: 'Sat', temp: '20*' },
-  { id: 7, day: 'Sun', temp: '20*' },
-];
 
 interface DailyProps {
   daily: Array<DailyInfo>;
   currentTemp: number;
   currentIcon: string;
+  isMainApi: boolean;
 }
 
 
-const WeatherPanel = ({daily, currentTemp, currentIcon}:DailyProps) => {
+const WeatherPanel = ({daily, currentTemp, currentIcon, isMainApi}: DailyProps) => {
+
+  const {
+    weatherInfo: tempFromStormGlass,
+  } = useSelector((state: any) => state.stormGlass);
+
   return (
     <WeatherPanelWrapper>
-
       <CurrentDayWrapper>
         <WeatherIcon  maxWidth='100px' icon = {currentIcon}/>
         <CurrentDayBox>
           <OvalInfoBlock info='Today' />
-          <CurrentTemperature>{ `${currentTemp }°` }</CurrentTemperature>
+          <CurrentTemperature>{isMainApi ? `${currentTemp }°` : `${tempFromStormGlass }°` }</CurrentTemperature>
         </CurrentDayBox>
       </CurrentDayWrapper>
       <DailyInfoWrapper>
@@ -55,7 +49,6 @@ const WeatherPanel = ({daily, currentTemp, currentIcon}:DailyProps) => {
           </DailyInfoBox>
         ))}
       </DailyInfoWrapper>
-
     </WeatherPanelWrapper>
   );
 };

@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
-export const CalendarWrapper = styled.div`
+interface Props {
+  bgColor: string;
+}
+
+export const CalendarWrapper = styled.div<Props>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   max-width: 900px;
   margin: 50px auto 0;
+  background-color: ${props => props.bgColor};
   padding: 50px;
     @media (max-width: 650px) {
     padding: 10px 50px;
@@ -89,8 +94,6 @@ export const InfoItemText = styled.div`
   justify-content: center;
   margin: 0 0 0 14px;
 `;
-
-
 
 export const CurrentCity = styled.div`
   font-size: 28px;

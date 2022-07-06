@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-interface Props {
-
-}
-
-export const LocationsWrapper = styled.div<Props>`
+export const LocationsWrapper = styled.div`
   margin: 0 auto;
   max-width: 800px;
   display: flex;
@@ -13,7 +9,7 @@ export const LocationsWrapper = styled.div<Props>`
   background-color: ${({ theme }) => theme.color.primary};
 `;
 
-export const LocationButton = styled.button<Props>`
+export const LocationButton = styled.button`
   padding: 0;
   border: none;
   font: inherit;

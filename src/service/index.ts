@@ -3,18 +3,14 @@ import { DateTime } from 'luxon';
 import { uuid } from '../helpers/uuid';
 
 const API_KEY = 'b97193ccd829d8b46f2dc8c92b121ca0';
-
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
-export const getWeatherData = (infoType: any, searchParams: any) => {
-
+const getWeatherData = async (infoType: any, searchParams: any) => {
   const url: any = new URL(`${BASE_URL}/${infoType}`);
   url.search = new URLSearchParams({ ...searchParams, appid: API_KEY });
-
-  return fetch(url).then(res => res.json());
+  const res = await fetch(url);
+  return res.json();
 };
-
-
 
 const formatCurrentWeather = (data: any) => {
   const {
@@ -29,7 +25,7 @@ const formatCurrentWeather = (data: any) => {
   const { main: details, icon } = weather[0];
 
   const currentTemp = temp.toFixed();
-
+  console.log('currentTemp', currentTemp);
   return {
     lat,
     lon,
@@ -56,7 +52,6 @@ const formatToLocalDay = (
 
 const formatForecastWeather = (data: any) => {
   let { timezone, daily } = data;
-  console.log('formatForecastWeather', data)
   daily = daily.slice(1, 8).map((d: any) => {
     return {
       id: uuid(),
@@ -65,19 +60,10 @@ const formatForecastWeather = (data: any) => {
       icon: d.weather[0].icon,
     };
   });
-
   return { timezone, daily };
 };
 
-
-
-
-
-
-
-
-
-const getFormattedWeatherData = async (searchParams: any) => {
+const getOpenWeatherData = async (searchParams: any) => {
   const formattedCurrentWeather = await getWeatherData(
     'weather',
     searchParams,
@@ -95,10 +81,9 @@ const getFormattedWeatherData = async (searchParams: any) => {
   return { ...formattedCurrentWeather, ...formattedForecastWeather };
 };
 
+const iconUrlFromCode = (iconName: any) =>
+  `http://openweathermap.org/img/wn/${iconName}@2x.png`;
 
-const iconUrlFromCode = (code: any) =>
-  `http://openweathermap.org/img/wn/${code}@2x.png`;
-
-export default getFormattedWeatherData;
+export default getOpenWeatherData;
 
 export { formatToLocalTime, formatToLocalDay, iconUrlFromCode };

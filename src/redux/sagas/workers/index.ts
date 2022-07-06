@@ -1,15 +1,11 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
+import {  call, put } from 'redux-saga/effects';
 
-import { DateTime } from 'luxon';
+
+import getOpenWeatherData from 'service';
+
+import getStormGlassData from 'service/weatherStormglass';
 
 import * as actions from '../../actions';
-
-import getFormattedWeatherData from '../../../api'
-
-
-const API_KEY = 'b97193ccd829d8b46f2dc8c92b121ca0';
-
-const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 type WeatherData = any;
 type ReturnData = any;
@@ -23,10 +19,26 @@ export function* getWeatherWorker({payload}: any): Generator<
 >{
   try
   {
-    const response = yield call (getFormattedWeatherData, payload);
+    const response = yield call(getOpenWeatherData, payload);
     yield put(actions.GET_OPEN_WEATHER_SUCCESS(response));
   } catch (error)
   {
     yield put(actions.GET_OPEN_WEATHER_FAIL(error));
+  }
+}
+
+
+export function* getStormGlassWorker({payload}: any): Generator<
+  WeatherData,
+  ReturnData,
+  PayloadData
+>{
+  try
+  {
+    const response = yield call(getStormGlassData, payload);
+    yield put(actions.GET_STORM_SUCCESS(response));
+  } catch (error)
+  {
+    yield put(actions.GET_STORM_FAIL(error));
   }
 }

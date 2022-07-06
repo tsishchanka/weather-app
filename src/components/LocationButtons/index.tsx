@@ -1,5 +1,6 @@
-import React from 'react';
+import {LOCAL_STORAGE_KEYS} from '../../constants/localStorageKeys';
 
+import {locations} from './mock';
 import { LocationsWrapper, LocationButton } from './styled';
 
 interface LocationProps {
@@ -7,28 +8,7 @@ interface LocationProps {
 }
 
 const LocationButtons = ({setQuery}: LocationProps) => {
-  const locations = [
-    {
-      id: 1,
-      title: 'London',
-    },
-    {
-      id: 2,
-      title: 'Paris',
-    },
-    {
-      id: 3,
-      title: 'Minsk',
-    },
-    {
-      id: 4,
-      title: 'New York',
-    },
-    {
-      id: 5,
-      title: 'Tokyo',
-    },
-  ];
+
   return (
     <LocationsWrapper>
       {locations.map(({ id, title }) => (
