@@ -48,7 +48,7 @@ const WeatherContainer = () => {
       const current = JSON.parse(currentLocation);
       setQuery(current);
     } else {
-      getGeoPosition();
+      setQuery({q: 'Minsk'});
     }
   }, []);
 

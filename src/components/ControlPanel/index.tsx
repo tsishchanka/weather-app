@@ -3,11 +3,11 @@ import { LOCAL_STORAGE_KEYS } from 'constants/localStorageKeys';
 
 import moment from 'moment';
 
-
 import { useState, FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_STORM_REQUEST, GET_OPEN_WEATHER_REQUEST } from 'redux/actions';
 import { UilSearchAlt, UilMapMarker } from '@iconscout/react-unicons';
+
 
 import { InputContainer, InputWrapper, SearchInput, WeatherSettings, WeatherButton } from './styled';
 

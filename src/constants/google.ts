@@ -1,4 +1,4 @@
-export const CLIENT_ID = '655161461636-i95psn35h7ps63cg6ekagjj04p2modjq.apps.googleusercontent.com';
-export const API_KEY = 'AIzaSyDTnN0HLcnIF94-3S7siSggSiACK-RScps';
+export const CLIENT_ID = '785803215049-k5vaoraqih1n5nf99qe3ipjmrkdn80p4.apps.googleusercontent.com';
+export const API_KEY = 'AIzaSyDf6Pljd7JZ_gVqeDU46NGLq72D0nza5Ok';
 export const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
 export const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';

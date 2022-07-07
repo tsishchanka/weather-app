@@ -4,3 +4,6 @@ declare module 'axios';
 declare module 'luxon';
 declare module 'react-geocode';
 declare module 'gapi-script';
+declare module 'react-google-login';
+declare module 'googleapis';
+declare module 'firebase';

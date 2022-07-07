@@ -1,10 +1,11 @@
-import { FC, useCallback } from 'react';
-import {useSelector} from 'react-redux';
+import { FC, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import WeatherPanel from 'components/WeatherPanel';
-import { getGoogleInfo } from 'helpers/getGoogleEvents';
 import { formatToLocalTime, formatToLocalDay } from 'service';
 
+import {CALENDAR_ID } from '../../constants/googleCreds';
+import { apiCalendar } from '../../service/googleCalendarApi';
 import OvalInfoBlock from '../OvalInfoBlock';
 
 import {
@@ -53,6 +54,8 @@ interface CalendarProps {
 }
 
 const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) => {
+  const [events, setEvents] = useState([]);
+
   const {
     name,
     currentTemp,
@@ -62,11 +65,20 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
     daily,
     dt,
   } = weatherInfo;
-  const {  location } = useSelector((state: any) => state.stormGlass);
-  console.log('location', location);
-  const handleGetEvents = useCallback(() => {
-    getGoogleInfo();
-  }, []);
+  const { location } = useSelector((state: any) => state.stormGlass);
+
+  const { handleAuthClick, listUpcomingEvents } = apiCalendar;
+
+  const googleEvents = async () => {
+    try {
+      const res = await listUpcomingEvents(3, CALENDAR_ID);
+      console.log('res', res.items);
+    } catch (err){
+      console.log(err);}
+
+  };
+
+  console.log('googleEvents',googleEvents());
 
   return (
     <CalendarWrapper bgColor={currentTemp > 20 ? 'orange': 'blue'}>
@@ -92,14 +104,18 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
         </RightSideInfo>
       </CalendarInfoWrapper>
       <GoogleCalendarInfo>
-        {/* <button type="button" onClick = {handleGetEvents}>Events</button> */}
+        <button
+          type='button'
+          onClick={handleAuthClick}
+        >Events
+        </button>
         {
-          tasks.map(({ id, time, text }) => (
-            <GoogleCalendarInfoItem key={id}>
-              <OvalInfoBlock info={time } />
-              <InfoItemText>{text}</InfoItemText>
-            </GoogleCalendarInfoItem>
-          ))
+          // events.map(({ id, time, summary }) => (
+          //   <GoogleCalendarInfoItem key={id}>
+          //     {/* <OvalInfoBlock info={time } /> */}
+          //     <InfoItemText>{summary}</InfoItemText>
+          //   </GoogleCalendarInfoItem>
+          // ))
         }
       </GoogleCalendarInfo>
       <WeatherPanel isMainApi={isMainApi} daily={daily} currentTemp={currentTemp} currentIcon={currentIcon} />
