@@ -1,4 +1,5 @@
 import { FC, useCallback } from 'react';
+import {useSelector} from 'react-redux';
 
 import WeatherPanel from 'components/WeatherPanel';
 import { getGoogleInfo } from 'helpers/getGoogleEvents';
@@ -61,7 +62,8 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
     daily,
     dt,
   } = weatherInfo;
-
+  const {  location } = useSelector((state: any) => state.stormGlass);
+  console.log('location', location);
   const handleGetEvents = useCallback(() => {
     getGoogleInfo();
   }, []);
@@ -82,10 +84,10 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
         </LeftSideInfo>
         <RightSideInfo>
           <CurrentCity>
-            {name}
+            {isMainApi ? name : location}
           </CurrentCity>
           <CurrentCountry>
-            {country}
+            {isMainApi && country}
           </CurrentCountry>
         </RightSideInfo>
       </CalendarInfoWrapper>

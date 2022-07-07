@@ -25,7 +25,7 @@ const formatCurrentWeather = (data: any) => {
   const { main: details, icon } = weather[0];
 
   const currentTemp = temp.toFixed();
-  console.log('currentTemp', currentTemp);
+
   return {
     lat,
     lon,

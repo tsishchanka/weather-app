@@ -26,7 +26,6 @@ interface DailyProps {
 
 
 const WeatherPanel = ({daily, currentTemp, currentIcon, isMainApi}: DailyProps) => {
-
   const {
     weatherInfo: tempFromStormGlass,
   } = useSelector((state: any) => state.stormGlass);

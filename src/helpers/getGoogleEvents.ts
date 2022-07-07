@@ -125,7 +125,7 @@ export const getGoogleInfo = () => {
       };
       response = await gapi.client.calendar.events.list(request);
     } catch (err) {
-      console.log(err);
+      return err;
     }
 
     const events = response.result.items;

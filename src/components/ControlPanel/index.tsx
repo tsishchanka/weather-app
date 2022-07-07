@@ -1,4 +1,8 @@
-import {LOCAL_STORAGE_KEYS} from 'constants/localStorageKeys';
+
+import { LOCAL_STORAGE_KEYS } from 'constants/localStorageKeys';
+
+import moment from 'moment';
+
 
 import { useState, FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,6 +29,7 @@ const ControlPanel: FC<ControlPanelProps> = ({
 
   const dispatch = useDispatch();
   const units = 'metric';
+  const start  = moment().format();
   const {
     weatherInfo,
   } = useSelector((state: any) => state.weather);
@@ -32,19 +37,19 @@ const ControlPanel: FC<ControlPanelProps> = ({
   const { lat: latCurr, lon: lonCurr, dt } = weatherInfo;
 
   const [location, setLocation] = useState('');
-  
+
   const handleSearchLocation = () => {
-    if (location !== '')
-    {
-      setQuery({q: location});
+    if (location !== '') {
+      setQuery({ q: location });
+      setLocation('');
     }
   };
 
-  const handleFetchStormGlass = useCallback(() => {
-    dispatch(GET_STORM_REQUEST({ ...query }));
+  const handleFetchStormGlass = () => {
+    dispatch(GET_STORM_REQUEST({ ...query, start }));
     setIsMainApi(false);
     localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION, JSON.stringify({ lat: latCurr, lon: lonCurr }));
-  }, [dispatch, query]);
+  };
 
   const handleFetchOpenWeather = useCallback(() => {
     dispatch(GET_OPEN_WEATHER_REQUEST({ ...query, units }));

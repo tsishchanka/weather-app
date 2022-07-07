@@ -1,5 +1,6 @@
 import { useLayoutEffect, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 import Weather from '../screens';
 import {LOCAL_STORAGE_KEYS} from '../constants/localStorageKeys';
@@ -20,7 +21,7 @@ const WeatherContainer = () => {
   const [isMainApi, setIsMainApi] = useState(true);
   const [query, setQuery] = useState({});
   const units = 'metric';
-
+  const start  = moment().format();
   const getGeoPosition = () => {
     if (navigator.geolocation){
       navigator.geolocation.getCurrentPosition(
@@ -42,9 +43,9 @@ const WeatherContainer = () => {
   };
 
   useLayoutEffect(() => {
-    const currentTheme = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION);
-    if (currentTheme !== null){
-      const current = JSON.parse(currentTheme);
+    const currentLocation = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION);
+    if (currentLocation !== null){
+      const current = JSON.parse(currentLocation);
       setQuery(current);
     } else {
       getGeoPosition();
@@ -55,7 +56,7 @@ const WeatherContainer = () => {
     if (isMainApi){
       dispatch(GET_OPEN_WEATHER_REQUEST({ ...query, units }));
     } else {
-      dispatch(GET_STORM_REQUEST({ ...query }));
+      dispatch(GET_STORM_REQUEST({ ...query, start }));
     }
     localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION, JSON.stringify({ ...query }));
   }, [query, units]);

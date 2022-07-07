@@ -3,5 +3,6 @@ export const DEFAULT_STATE = {
   isLoading: false,
   isOpenWeather: true,
   isStormWeather: false,
+  location: '',
   error: null,
 };
