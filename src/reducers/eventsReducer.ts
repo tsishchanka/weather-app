@@ -15,6 +15,7 @@ const eventsReducer = handleActions(
         isLoading: true,
       });},
     [actions.GET_EVENTS_SUCCESS]: (state: any, { payload }: any) => {
+
       return ({
         ...state,
         events: payload,

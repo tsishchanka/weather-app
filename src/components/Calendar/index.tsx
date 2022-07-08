@@ -54,6 +54,7 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
   const [isAuth, setIsAuth] = useState(false);
   const { location, weatherInfo : secondTemp } = useSelector((state: any) => state.stormGlass);
   const { events } = useSelector((state: any) => state.eventsReducer);
+  console.log('events', events);
   const {
     name,
     currentTemp,
@@ -104,13 +105,15 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
           onClick={handleAuth}
         >SignIn
         </EventButton>
+
         <EventButton
           type='button'
           onClick={handleEvents}
+
         >Events
         </EventButton>
         {
-          events.length !== 0 ? events.map(({ id, start, summary }: any) => {
+          events?.length !==0 ? events?.map(({ id, start, summary }: any) => {
             const { dateTime } = start;
             const time = moment(dateTime).format('LT');
             return (
