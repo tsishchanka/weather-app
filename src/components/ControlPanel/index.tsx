@@ -35,7 +35,6 @@ const ControlPanel: FC<ControlPanelProps> = ({
   } = useSelector((state: any) => state.weather);
 
   const { lat: latCurr, lon: lonCurr, dt } = weatherInfo;
-
   const [location, setLocation] = useState('');
 
   const handleSearchLocation = () => {
@@ -48,16 +47,12 @@ const ControlPanel: FC<ControlPanelProps> = ({
   const handleFetchStormGlass = () => {
     setIsMainApi(false);
     dispatch(GET_STORM_REQUEST({ ...query, start }));
-
-    console.log('ST isMainApi', isMainApi);
     localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({ lat: latCurr, lon: lonCurr }));
   };
 
   const handleFetchOpenWeather = useCallback(() => {
     setIsMainApi(true);
     dispatch(GET_OPEN_WEATHER_REQUEST({ ...query, units }));
-
-    console.log('WO isMainApi', isMainApi);
     localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({ lat: latCurr, lon: lonCurr }));
   }, [dispatch, query, units]);
 

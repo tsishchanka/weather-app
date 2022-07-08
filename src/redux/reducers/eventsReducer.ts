@@ -11,14 +11,11 @@ const DEFAULT_EVENTS_STATE = {
 const eventsReducer = handleActions(
   {
     [actions.GET_EVENTS_REQUEST]: (state: any) => {
-      console.log('GET_EVENTS_REQUEST');
       return ({
         ...state,
         isLoading: true,
       });},
     [actions.GET_EVENTS_SUCCESS]: (state: any, { payload }: any) => {
-      console.log('payload',payload);
-
       return ({
         ...state,
         events: payload,

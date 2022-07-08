@@ -28,6 +28,17 @@ export const CalendarInfoWrapper = styled.div`
   }
 `;
 
+export const EventButton = styled.button`
+  background-color: ${({ theme }) => theme.color.primary};
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 4px;
+    margin: 4px;
+    text-align: center;
+    text-decoration: none;
+`;
+
 export const LeftSideInfo = styled.div`
   display: flex;
   flex-direction: column;

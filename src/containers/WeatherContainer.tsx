@@ -28,7 +28,6 @@ const WeatherContainer = () => {
       dispatch(GET_OPEN_WEATHER_REQUEST({...current, units }));
     } else
     {
-      console.log('WO dispatch');
       dispatch(GET_OPEN_WEATHER_REQUEST({ q: 'Minsk', units }));
     }
   }, []);

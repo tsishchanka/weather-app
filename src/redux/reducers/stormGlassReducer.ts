@@ -4,12 +4,6 @@ import { handleActions } from 'redux-actions';
 
 import * as actions from 'redux/actions';
 
-const DEF = {
-  weatherInfo: [],
-  isLoading: false,
-  location: '',
-  error: null,
-};
 
 const stormGlassReducer = handleActions(
   {
@@ -21,8 +15,6 @@ const stormGlassReducer = handleActions(
     [actions.GET_STORM_SUCCESS]: (state: any, { payload }: any) => {
 
       const { hours, location } = payload;
-      console.log('SW hours', payload?.hours);
-      console.log('SW location', payload?.location);
       return ({
         ...state,
         weatherInfo: hours[0]?.airTemperature[0].value.toFixed(),
@@ -38,7 +30,7 @@ const stormGlassReducer = handleActions(
     }),
   },
 
-  DEF,
+  DEFAULT_STATE,
 );
 
 export default stormGlassReducer;
