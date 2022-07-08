@@ -5,8 +5,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { ThemeProvider } from 'styled-components';
 
+// eslint-disable-next-line import/order
 import { HOME_PAGE_ROUTE } from 'constants/router';
-
 import store from 'store/configureStore';
 import WeatherContainer from 'containers/WeatherContainer';
 import theme from 'theme';
