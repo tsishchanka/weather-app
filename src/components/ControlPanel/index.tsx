@@ -1,5 +1,5 @@
 
-import { LOCAL_STORAGE_KEYS } from 'constants/localStorageKeys';
+import { KEYS } from 'constants/localStorageKeys';
 
 import moment from 'moment';
 
@@ -48,13 +48,13 @@ const ControlPanel: FC<ControlPanelProps> = ({
   const handleFetchStormGlass = () => {
     dispatch(GET_STORM_REQUEST({ ...query, start }));
     setIsMainApi(false);
-    localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION, JSON.stringify({ lat: latCurr, lon: lonCurr }));
+    localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({ lat: latCurr, lon: lonCurr }));
   };
 
   const handleFetchOpenWeather = useCallback(() => {
     dispatch(GET_OPEN_WEATHER_REQUEST({ ...query, units }));
     setIsMainApi(true);
-    localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION, JSON.stringify({ lat: latCurr, lon: lonCurr }));
+    localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({ lat: latCurr, lon: lonCurr }));
   }, [dispatch, query, units]);
 
   return (

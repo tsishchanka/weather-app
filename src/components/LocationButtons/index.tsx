@@ -1,4 +1,4 @@
-import {LOCAL_STORAGE_KEYS} from '../../constants/localStorageKeys';
+import {KEYS} from '../../constants/localStorageKeys';
 
 import {locations} from './mock';
 import { LocationsWrapper, LocationButton } from './styled';

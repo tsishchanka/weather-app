@@ -9,6 +9,7 @@ const getWeatherData = async (infoType: any, searchParams: any) => {
   const url: any = new URL(`${BASE_URL}/${infoType}`);
   url.search = new URLSearchParams({ ...searchParams, appid: API_KEY });
   const res = await fetch(url);
+  // console.log('FETCH res', res);
   return res.json();
 };
 

@@ -1,10 +1,11 @@
-import { FC, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
+import { FC, useEffect, useState, useCallback} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 import WeatherPanel from 'components/WeatherPanel';
 import { formatToLocalTime, formatToLocalDay } from 'service';
 
-import {CALENDAR_ID } from '../../constants/googleCreds';
+import {GET_EVENTS_REQUEST} from '../../redux/actions';
+import { KEYS } from '../../constants/localStorageKeys';
 import { apiCalendar } from '../../service/googleCalendarApi';
 import OvalInfoBlock from '../OvalInfoBlock';
 
@@ -23,13 +24,6 @@ import {
   CurrentCity,
   CurrentCountry,
 } from './styled';
-
-const tasks = [
-  { id: 1, time: '12:00', text: 'first' },
-  { id: 2, time: '12:00', text: 'second' },
-  { id: 3, time: '12:00', text: 'third' },
-
-];
 
 export type DailyInfo = {
   id: string,
@@ -54,8 +48,10 @@ interface CalendarProps {
 }
 
 const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) => {
-  const [events, setEvents] = useState([]);
-
+  const dispatch = useDispatch();
+  const [isAuth, setIsAuth] = useState(false);
+  const { location } = useSelector((state: any) => state.stormGlass);
+  const { events } = useSelector((state: any) => state.eventsReducer);
   const {
     name,
     currentTemp,
@@ -65,20 +61,24 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
     daily,
     dt,
   } = weatherInfo;
-  const { location } = useSelector((state: any) => state.stormGlass);
 
-  const { handleAuthClick, listUpcomingEvents } = apiCalendar;
+  const { handleAuthClick } = apiCalendar;
 
-  const googleEvents = async () => {
-    try {
-      const res = await listUpcomingEvents(3, CALENDAR_ID);
-      console.log('res', res.items);
-    } catch (err){
-      console.log(err);}
-
+  const handleAuth = async () => {
+    setIsAuth(true);
+    handleAuthClick();
   };
 
-  console.log('googleEvents',googleEvents());
+  const handleEvents = useCallback(() => {
+    dispatch(GET_EVENTS_REQUEST());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const savedEvents = localStorage.getItem(KEYS.EVENTS);
+    if (savedEvents !== null){
+      const parserEvents = JSON.parse(savedEvents);
+    }
+  },[]);
 
   return (
     <CalendarWrapper bgColor={currentTemp > 20 ? 'orange': 'blue'}>
@@ -106,19 +106,32 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
       <GoogleCalendarInfo>
         <button
           type='button'
-          onClick={handleAuthClick}
+          onClick={handleAuth}
+        >SignIn
+        </button>
+
+
+        <button
+          type='button'
+          onClick={handleEvents}
         >Events
         </button>
         {
-          // events.map(({ id, time, summary }) => (
-          //   <GoogleCalendarInfoItem key={id}>
-          //     {/* <OvalInfoBlock info={time } /> */}
-          //     <InfoItemText>{summary}</InfoItemText>
-          //   </GoogleCalendarInfoItem>
-          // ))
+          events.map(({ id, start, summary }: any) => {
+            const { dateTime } = start;
+            const time = moment(dateTime).format('LT');
+            return (
+              <GoogleCalendarInfoItem key={id}>
+                <OvalInfoBlock info={time} />
+                <InfoItemText>{summary}</InfoItemText>
+              </GoogleCalendarInfoItem>
+            );},
+          )
         }
+
       </GoogleCalendarInfo>
-      <WeatherPanel isMainApi={isMainApi} daily={daily} currentTemp={currentTemp} currentIcon={currentIcon} />
+      { dt && <WeatherPanel isMainApi={isMainApi} daily={daily} currentTemp={currentTemp} currentIcon={currentIcon} />}
+
     </CalendarWrapper>
   );
 };

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 import Weather from '../screens';
-import {LOCAL_STORAGE_KEYS} from '../constants/localStorageKeys';
+import {KEYS} from '../constants/localStorageKeys';
 import { GET_OPEN_WEATHER_REQUEST, GET_STORM_REQUEST } from '../redux/actions';
 
 const WeatherContainer = () => {
@@ -22,33 +22,34 @@ const WeatherContainer = () => {
   const [query, setQuery] = useState({});
   const units = 'metric';
   const start  = moment().format();
-  const getGeoPosition = () => {
-    if (navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          const newUserPos = {
-            lat: pos.coords.latitude,
-            long: pos.coords.longitude,
-          };
+  // const getGeoPosition = () => {
+  //   if (navigator.geolocation){
+  //     navigator.geolocation.getCurrentPosition(
+  //       pos => {
+  //         const newUserPos = {
+  //           lat: pos.coords.latitude,
+  //           long: pos.coords.longitude,
+  //         };
 
-          setQuery(newUserPos);
-          localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION, JSON.stringify({lat: pos.coords.latitude,
-            long: pos.coords.longitude}));
-        });
-    } else {
-      setQuery({
-        q: 'minsk',
-      });
-    }
-  };
+  //         setQuery(newUserPos);
+  //         localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({lat: pos.coords.latitude,
+  //           long: pos.coords.longitude}));
+  //       });
+  //   } else {
+  //     setQuery({
+  //       q: 'minsk',
+  //     });
+  //   }
+  // };
 
-  useLayoutEffect(() => {
-    const currentLocation = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION);
+  useEffect(() => {
+    const currentLocation = localStorage.getItem(KEYS.CURRENT_LOCATION);
     if (currentLocation !== null){
       const current = JSON.parse(currentLocation);
-      setQuery(current);
-    } else {
-      setQuery({q: 'Minsk'});
+      dispatch(GET_OPEN_WEATHER_REQUEST({...current, units }));
+    } else
+    {
+      dispatch(GET_OPEN_WEATHER_REQUEST({ q: 'Minsk', units }));
     }
   }, []);
 
@@ -58,7 +59,7 @@ const WeatherContainer = () => {
     } else {
       dispatch(GET_STORM_REQUEST({ ...query, start }));
     }
-    localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION, JSON.stringify({ ...query }));
+    localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({ ...query }));
   }, [query, units]);
 
 
@@ -72,7 +73,7 @@ const WeatherContainer = () => {
           lat,
           lon,
         });
-        localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_LOCATION, JSON.stringify({lat, lon}));
+        localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({lat, lon}));
       });
     }
   };

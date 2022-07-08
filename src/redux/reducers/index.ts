@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage';
 
 import weather from './weatherReducer';
 import stormGlass from './stormGlassReducer';
-
+import eventsReducer from './eventsReducer';
 
 
 const persistConfig = {
@@ -15,6 +15,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   weather,
   stormGlass,
+  eventsReducer,
 });
 
 export default  persistReducer(persistConfig, rootReducer);

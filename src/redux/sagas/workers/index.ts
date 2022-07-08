@@ -2,8 +2,8 @@ import {  call, put } from 'redux-saga/effects';
 
 
 import getOpenWeatherData from 'service';
-
 import getStormGlassData from 'service/weatherStormglass';
+import getEvents from 'service/googleCalendarServices';
 
 import * as actions from '../../actions';
 
@@ -42,4 +42,22 @@ export function* getStormGlassWorker({payload}: any): Generator<
   {
     yield put(actions.GET_STORM_FAIL(error));
   }
+
+}
+
+export function* getEventsWorker({ payload }: any): Generator<
+  WeatherData,
+  ReturnData,
+  PayloadData
+> {
+  try
+  {
+
+    const response = yield call(getEvents);
+    yield put(actions.GET_EVENTS_SUCCESS(response));
+  } catch (error)
+  {
+    yield put(actions.GET_EVENTS_FAIL(error));
+  }
+
 }

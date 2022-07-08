@@ -10,4 +10,11 @@ export default createGlobalStyle`
   p{
     padding: 0;
     margin: 0;
-  }`;
+  }
+
+   button{
+    color: black;
+   }
+  `;
+
+

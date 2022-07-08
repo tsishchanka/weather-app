@@ -5,6 +5,9 @@ import {
   GET_STORM_REQUEST_ACTION,
   GET_STORM_SUCCESS_ACTION,
   GET_STORM_FAIL_ACTION,
+  GET_EVENTS_REQUEST_ACTION,
+  GET_EVENTS_SUCCESS_ACTION,
+  GET_EVENTS_FAIL_ACTION,
 } from 'constants/actions';
 
 import { createAction } from 'redux-actions';
@@ -17,3 +20,7 @@ export const GET_OPEN_WEATHER_FAIL = createAction(GET_OPEN_WEATHER_FAIL_ACTION);
 export const GET_STORM_REQUEST = createAction(GET_STORM_REQUEST_ACTION);
 export const GET_STORM_SUCCESS = createAction(GET_STORM_SUCCESS_ACTION);
 export const GET_STORM_FAIL = createAction(GET_STORM_FAIL_ACTION);
+
+export const GET_EVENTS_REQUEST = createAction(GET_EVENTS_REQUEST_ACTION);
+export const GET_EVENTS_SUCCESS = createAction(GET_EVENTS_SUCCESS_ACTION);
+export const GET_EVENTS_FAIL = createAction(GET_EVENTS_FAIL_ACTION);
