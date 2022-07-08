@@ -2,6 +2,7 @@ import { useState, FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
+// eslint-disable-next-line import/order
 import { KEYS } from 'constants/localStorageKeys';
 import { GET_STORM_REQUEST, GET_OPEN_WEATHER_REQUEST } from 'actions';
 import { UilSearchAlt, UilMapMarker } from '@iconscout/react-unicons';

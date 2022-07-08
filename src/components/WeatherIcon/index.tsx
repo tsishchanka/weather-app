@@ -2,7 +2,6 @@ import { iconUrlFromCode } from 'services/openWeather';
 
 import { Img } from './styled';
 
-
 interface WeatherIconProps  {
   maxWidth: string;
   icon: any;
