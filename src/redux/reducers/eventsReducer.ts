@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-
 import * as actions from 'redux/actions';
 
 const DEFAULT_EVENTS_STATE = {

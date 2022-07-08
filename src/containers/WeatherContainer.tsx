@@ -21,7 +21,7 @@ const WeatherContainer = () => {
   const units = 'metric';
   const start  = moment().format();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const currentLocation = localStorage.getItem(KEYS.CURRENT_LOCATION);
     if (currentLocation !== null){
       const current = JSON.parse(currentLocation);

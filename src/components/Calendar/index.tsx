@@ -1,11 +1,12 @@
 import { FC, useState, useCallback} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+
 import WeatherPanel from 'components/WeatherPanel';
-import { formatToLocalTime, formatToLocalDay } from 'service';
 
 import {GET_EVENTS_REQUEST} from 'redux/actions';
 import { apiCalendar } from 'service/googleCalendarApi';
+import { formatToLocalTime, formatToLocalDay } from 'service';
 
 import OvalInfoBlock from '../OvalInfoBlock';
 
@@ -109,7 +110,7 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
         >Events
         </EventButton>
         {
-          events.length !== 0 && events.map(({ id, start, summary }: any) => {
+          events.length !== 0 ? events.map(({ id, start, summary }: any) => {
             const { dateTime } = start;
             const time = moment(dateTime).format('LT');
             return (
@@ -118,7 +119,7 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
                 <InfoItemText>{summary}</InfoItemText>
               </GoogleCalendarInfoItem>
             );},
-          )
+          ) : <OvalInfoBlock info= 'There is no items to display'/>
         }
       </GoogleCalendarInfo>
       { dt && <WeatherPanel isMainApi={isMainApi} daily={daily} currentTemp={currentTemp} currentIcon={currentIcon} />}
