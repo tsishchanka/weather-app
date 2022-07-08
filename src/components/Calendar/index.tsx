@@ -4,9 +4,9 @@ import moment from 'moment';
 
 import WeatherPanel from 'components/WeatherPanel';
 
-import {GET_EVENTS_REQUEST} from 'redux/actions';
-import { apiCalendar } from 'service/googleCalendarApi';
-import { formatToLocalTime, formatToLocalDay } from 'service';
+import {GET_EVENTS_REQUEST} from 'actions';
+import { apiCalendar } from 'services/googleCalendarApi';
+import { formatToLocalTime, formatToLocalDay } from 'services/openWeather';
 
 import OvalInfoBlock from '../OvalInfoBlock';
 

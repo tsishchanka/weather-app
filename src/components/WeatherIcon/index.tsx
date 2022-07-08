@@ -1,4 +1,4 @@
-import { iconUrlFromCode } from 'service';
+import { iconUrlFromCode } from 'services/openWeather';
 
 import { Img } from './styled';
 

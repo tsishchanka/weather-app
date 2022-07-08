@@ -2,7 +2,7 @@ import {DEFAULT_STATE} from 'constants/defaultState';
 
 import { handleActions } from 'redux-actions';
 
-import * as actions from 'redux/actions';
+import * as actions from 'actions';
 
 
 const stormGlassReducer = handleActions(

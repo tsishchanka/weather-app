@@ -1,9 +1,9 @@
 import {  call, put } from 'redux-saga/effects';
 
 
-import getOpenWeatherData from 'service';
-import getStormGlassData from 'service/weatherStormglass';
-import getEvents from 'service/googleCalendarServices';
+import getOpenWeatherData from 'services/openWeather';
+import getStormGlassData from 'services/weatherStormglass';
+import getEvents from 'services/googleCalendarServices';
 
 import * as actions from '../../actions';
 

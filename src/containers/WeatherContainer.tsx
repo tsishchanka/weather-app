@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import Weather from '../screens';
 import {KEYS} from '../constants/localStorageKeys';
-import { GET_OPEN_WEATHER_REQUEST, GET_STORM_REQUEST } from '../redux/actions';
+import { GET_OPEN_WEATHER_REQUEST, GET_STORM_REQUEST } from '../actions';
 
 const WeatherContainer = () => {
 
