@@ -1,6 +1,6 @@
 import { getGeoCoords, getGeoAddress } from '../helpers/getGeoCoords';
 
-const STORM_API_KEY = '9b570b8c-fdca-11ec-a565-0242ac130002-9b570bfa-fdca-11ec-a565-0242ac130002';
+const STORM_API_KEY = '137af202-fdc3-11ec-b21f-0242ac130002-137af270-fdc3-11ec-b21f-0242ac130002';
 const BASE_STORM_URL = 'https://api.stormglass.io/v1';
 
 

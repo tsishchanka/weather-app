@@ -1,11 +1,13 @@
+/* eslint-disable no-plusplus */
 import { FC, useEffect, useState, useCallback} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import WeatherPanel from 'components/WeatherPanel';
 import { formatToLocalTime, formatToLocalDay } from 'service';
 
-import {GET_EVENTS_REQUEST} from '../../redux/actions';
 import { KEYS } from '../../constants/localStorageKeys';
+
+import {GET_EVENTS_REQUEST} from '../../redux/actions';
 import { apiCalendar } from '../../service/googleCalendarApi';
 import OvalInfoBlock from '../OvalInfoBlock';
 
@@ -50,8 +52,10 @@ interface CalendarProps {
 const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) => {
   const dispatch = useDispatch();
   const [isAuth, setIsAuth] = useState(false);
-  const { location } = useSelector((state: any) => state.stormGlass);
+  const { location, weatherInfo : secondTemp } = useSelector((state: any) => state.stormGlass);
+  console.log('LOC FROM UI', location);
   const { events } = useSelector((state: any) => state.eventsReducer);
+  console.log(events);
   const {
     name,
     currentTemp,
@@ -116,8 +120,8 @@ const Calendar: FC<CalendarProps> = ({ weatherInfo, isMainApi }: CalendarProps) 
           onClick={handleEvents}
         >Events
         </button>
-        {
-          events.map(({ id, start, summary }: any) => {
+         {
+          events.length !== 0 && events.map(({ id, start, summary }: any) => {
             const { dateTime } = start;
             const time = moment(dateTime).format('LT');
             return (

@@ -16,31 +16,10 @@ const WeatherContainer = () => {
     error,
   } = useSelector((state: any) => state.weather);
 
-  const { lat: latCurr, lon: lonCurr } = weatherInfo;
-
   const [isMainApi, setIsMainApi] = useState(true);
   const [query, setQuery] = useState({});
   const units = 'metric';
   const start  = moment().format();
-  // const getGeoPosition = () => {
-  //   if (navigator.geolocation){
-  //     navigator.geolocation.getCurrentPosition(
-  //       pos => {
-  //         const newUserPos = {
-  //           lat: pos.coords.latitude,
-  //           long: pos.coords.longitude,
-  //         };
-
-  //         setQuery(newUserPos);
-  //         localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({lat: pos.coords.latitude,
-  //           long: pos.coords.longitude}));
-  //       });
-  //   } else {
-  //     setQuery({
-  //       q: 'minsk',
-  //     });
-  //   }
-  // };
 
   useEffect(() => {
     const currentLocation = localStorage.getItem(KEYS.CURRENT_LOCATION);
@@ -49,24 +28,26 @@ const WeatherContainer = () => {
       dispatch(GET_OPEN_WEATHER_REQUEST({...current, units }));
     } else
     {
+      console.log('WO dispatch');
       dispatch(GET_OPEN_WEATHER_REQUEST({ q: 'Minsk', units }));
     }
   }, []);
 
   useEffect(() => {
+    localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({ ...query }));
     if (isMainApi){
       dispatch(GET_OPEN_WEATHER_REQUEST({ ...query, units }));
-    } else {
+    } else
+    {
       dispatch(GET_STORM_REQUEST({ ...query, start }));
     }
-    localStorage.setItem(KEYS.CURRENT_LOCATION, JSON.stringify({ ...query }));
+
   }, [query, units]);
 
 
   const handleChangeGeolocation = () => {
-    if (navigator.geolocation)
-    {
-      navigator.geolocation.getCurrentPosition(position => {
+    if (navigator.geolocation) {
+      navigator.geolocation?.getCurrentPosition(position => {
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
         setQuery({

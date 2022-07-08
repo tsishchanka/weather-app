@@ -40,6 +40,7 @@ export const RightSideInfo = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
+  max-width: 300px;
   @media (max-width: 400px) {
     align-items: center;
   }
@@ -97,6 +98,7 @@ export const InfoItemText = styled.div`
 
 export const CurrentCity = styled.div`
   font-size: 28px;
+  word-wrap: break-word;
 `;
 
 export const CurrentCountry = styled.div`
